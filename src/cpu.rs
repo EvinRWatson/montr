@@ -1,27 +1,24 @@
 use std::process::Command;
 
-pub struct Memory {
-    pub capacity: String,
-    pub usage: String,
-    pub speed: String,
+pub struct Cpu {
+    usage: String,
+    tempurature: String,
+    cores: String,
 }
 
-impl Default for Memory {
+impl Default for Cpu {
     fn default() -> Self {
         Self {
-            capacity: " ".to_string(),
             usage: " ".to_string(),
-            speed: " ".to_string()
+            tempurature: " ".to_string(),
+            cores: " ".to_string()
         }
     }
 }
 
-impl Memory {
+impl Cpu {
     pub fn fetch() -> String {
-    let output = Command::new("free")
-        .arg("-g")
-        .arg("-h")
-        .arg("-t")
+    let output = Command::new("lscpu")
         .output()
         .expect("Failed to execute process");
 
