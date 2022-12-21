@@ -1,4 +1,7 @@
 use std::process::Command;
+use rocket::form::validate::Contains;
+
+use crate::help;
 
 pub struct Memory {
     pub capacity: String,
@@ -29,5 +32,28 @@ impl Memory {
     print!("{}", response);
 
     return response.to_string();
+    }
+
+    pub fn extract_memory_data(input: String) -> Memory {
+        let mut memory: Memory = Memory::default();
+        let mut total: String;
+        let mut used: String;
+
+        for line in input.lines() {
+            match line.to_string() {
+                line if line.contains("Mem:") => {
+                    let mem_columns: Vec<String> = line.split(" ").map(|s| s.to_string()).collect();
+                    total = mem_columns[1].clone();
+                    used = mem_columns[2].clone();
+                    println!("Total: {}", total);
+                    println!("Used: {}", used);
+                },
+                _ => println!("No match")
+            }
+            if line.contains("Mem:") {
+                total = help::reduce_spaces(input.clone());
+            }
+        }
+        return memory;
     }
 }

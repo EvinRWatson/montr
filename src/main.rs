@@ -4,6 +4,8 @@ use memory::Memory;
 use disk::Disk;
 pub mod cpu;
 use cpu::Cpu;
+pub mod help;
+use help::reduce_spaces;
 
 #[macro_use] extern crate rocket;
 
@@ -19,8 +21,22 @@ fn data() -> String {
     return response
 }
 
+// Try visiting:
+// http://127.0.0.1:8000/test
+#[get("/test")]
+fn test() -> String {
+    let mem_data = Memory::fetch();
+    println!("{}", &mem_data);
+    let reduced = help::reduce_spaces(mem_data);
+    println!("{}", reduced);
+    let mem = Memory::extract_memory_data(reduced.clone());
+    
+
+    return reduced;
+}
+
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![data])
+        .mount("/", routes![data, test])
 }
