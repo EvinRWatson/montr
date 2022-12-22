@@ -45,8 +45,8 @@ impl Memory {
                     let mem_columns: Vec<String> = line.split(" ").map(|s| s.to_string()).collect();
                     total = mem_columns[1].clone();
                     used = mem_columns[2].clone();
-                    println!("Total: {}", total);
-                    println!("Used: {}", used);
+                    println!("Total: {}", help::convert_from_gib_to_gb(total));
+                    println!("Used: {}", help::convert_from_gib_to_gb(used));
                 },
                 _ => println!("No match")
             }
