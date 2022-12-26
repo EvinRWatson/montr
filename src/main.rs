@@ -4,6 +4,10 @@ use memory::Memory;
 use disk::Disk;
 pub mod cpu;
 use cpu::Cpu;
+pub mod sys_proc;
+use sys_proc::SystemProcess;
+pub mod response;
+use response::SysData;
 pub mod help;
 use help::reduce_spaces;
 
@@ -30,6 +34,8 @@ fn test() -> String {
     let reduced = help::reduce_spaces(mem_data);
     println!("{}", reduced);
     let mem = Memory::extract_memory_data(reduced.clone());
+
+    let mut response: Option<response::SysData> = None;
     
 
     return reduced;

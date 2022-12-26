@@ -1,8 +1,12 @@
 use std::process::Command;
 use rocket::form::validate::Contains;
 
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
+
 use crate::help;
 
+#[derive(Serialize, Deserialize)]
 pub struct Memory {
     pub capacity: String,
     pub usage: String,

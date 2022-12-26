@@ -1,4 +1,8 @@
 use std::process::Command;
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
+
+#[derive(Serialize, Deserialize)]
 pub struct Disk {
     pub capacity: String,
     pub usage: String,
